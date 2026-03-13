@@ -1,0 +1,67 @@
+[
+  {
+    "title": "INFO",
+    "href": "#info",
+    "children": [
+      { "title": "ABOUT US", "href": "#about" },
+      { "title": "BE A RESELLER", "href": "#reseller" },
+      { "title": "BLOGS", "href": "#blogs" },
+      { "title": "DISCLAIMER", "href": "#disclaimer" },
+      { "title": "SUBMIT YOUR LICENSE", "href": "#license" },
+      { "title": "LICENSE AND PERMIT APPLICATION", "href": "#permit" },
+      { "title": "WARRANTY AND RETURN POLICY", "href": "#warranty" },
+      { "title": "FAQS", "href": "#faqs" },
+      { "title": "CONTACT US", "href": "#contact" }
+    ]
+  },
+  {
+    "title": "BRANDS",
+    "href": "#brands",
+    "children": [
+      { "title": "DENIX", "href": "#denix" },
+      { "title": "GONHER", "href": "#gonher" },
+      { "title": "SCHROEDEL", "href": "#schroedel" },
+      { "title": "VILLA GIOCATTOLI S.R.L", "href": "#villa" },
+      { "title": "EDISON", "href": "#edison" }
+    ]
+  },
+  {
+    "title": "ERA",
+    "href": "#era",
+    "children": [
+      { "title": "NEW ARRIVALS", "href": "#new-arrivals" },
+      { "title": "CAP GUNS", "href": "#cap-guns" },
+      { "title": "COLONIAL AND PIRATE", "href": "#colonial" },
+      { "title": "HISTORICAL WEAPONS", "href": "#historical" },
+      { "title": "WESTERN", "href": "#western" },
+      { "title": "WORLD WAR I", "href": "#ww1" },
+      { "title": "WORLD WAR II", "href": "#ww2" },
+      { "title": "POST WORLD WAR II", "href": "#post-ww2" }
+    ]
+  },
+  {
+    "title": "PRODUCT TYPE",
+    "href": "#products",
+    "children": [
+      { "title": "FLINTLOCK AND PERCUSSION PISTOLS", "href": "#flintlock-pistols" },
+      { "title": "FLINTLOCK AND PERCUSSION RIFLES", "href": "#flintlock-rifles" },
+      { "title": "WESTERN PISTOLS", "href": "#western-pistols" },
+      { "title": "WESTERN RIFLES", "href": "#western-rifles" },
+      { "title": "MILITARY AND POLICE PISTOLS", "href": "#military-pistols" },
+      { "title": "MILITARY AND POLICE RIFLES", "href": "#military-rifles" },
+      { "title": "CAP GUNS", "href": "#cap-guns" },
+      { "title": "CANNONS", "href": "#cannons" },
+      { "title": "BULLETS, ACCESSORIES AND HOLSTERS", "href": "#accessories" },
+      { "title": "STANDS AND BRACKETS", "href": "#stands" },
+      { "title": "GIFT CARDS", "href": "#gift-cards" }
+    ]
+  },
+  {
+    "title": "THE VAULT",
+    "href": "#vault",
+    "children": [
+      { "title": "TOP 24 BESTSELLING DENIX REPLICAS", "href": "#bestselling" },
+      { "title": "GUNS OF NED KELLY", "href": "#ned-kelly" }
+    ]
+  }
+]

@@ -1,0 +1,60 @@
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem 0 3rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #1a1a1a;
+}
+
+.description {
+  font-size: 1.125rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.products {
+  padding: 1rem 0;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  color: #1a1a1a;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.loadMore {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #1a1a1a;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.loadMore:hover {
+  background-color: #333;
+}
