@@ -2,13 +2,22 @@ import { createStorefrontApiClient } from "@shopify/storefront-api-client";
 
 // Extract store domain from SHOPIFY_APP_URL or use dedicated env var
 const getStoreDomain = (): string => {
+  let domain = "";
+
   if (process.env.SHOPIFY_STORE_DOMAIN) {
-    return process.env.SHOPIFY_STORE_DOMAIN;
+    domain = process.env.SHOPIFY_STORE_DOMAIN;
+  } else {
+    // Extract from SHOPIFY_APP_URL (e.g., https://replica-weapons-store.myshopify.com/)
+    const appUrl = process.env.SHOPIFY_APP_URL || "";
+    const match = appUrl.match(/https?:\/\/([^/]+)/);
+    domain = match ? match[1] : "your-store.myshopify.com";
   }
-  // Extract from SHOPIFY_APP_URL (e.g., https://replica-weapons-store.myshopify.com/)
-  const appUrl = process.env.SHOPIFY_APP_URL || "";
-  const match = appUrl.match(/https?:\/\/([^/]+)/);
-  return match ? match[1] : "your-store.myshopify.com";
+
+  // Strip protocol and trailing slash if present
+  domain = domain.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+  console.log("[Storefront] Using store domain:", domain);
+  return domain;
 };
 
 // Storefront API client for public product access
@@ -18,10 +27,20 @@ const getStoreDomain = (): string => {
 // 2. Click "Develop apps" → Create or select an app
 // 3. Configure Storefront API scopes (unauthenticated_read_product_listings, etc.)
 // 4. Install app and copy the Storefront API access token
-export const storefrontClient = createStorefrontApiClient({
-  storeDomain: getStoreDomain(),
+const storeDomain = getStoreDomain();
+const storefrontToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "";
+
+console.log("[Storefront] Initializing client:", {
+  storeDomain,
+  hasToken: !!storefrontToken,
+  tokenLength: storefrontToken.length,
   apiVersion: "2025-04",
-  publicAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
+});
+
+export const storefrontClient = createStorefrontApiClient({
+  storeDomain,
+  apiVersion: "2025-04",
+  publicAccessToken: storefrontToken,
 });
 
 // GraphQL fragments for reuse across queries

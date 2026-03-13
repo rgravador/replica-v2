@@ -43,23 +43,28 @@ export async function loader({
   }
 
   try {
+    console.log(`[Product] Fetching product with handle: ${handle}`);
+
     const { data, errors } = await storefrontClient.request(PRODUCT_QUERY, {
       variables: { handle },
     });
 
     if (errors) {
-      console.error("Storefront API errors:", errors);
-      return { product: null, error: "Failed to load product" };
+      console.error("[Product] Storefront API errors:", JSON.stringify(errors, null, 2));
+      return { product: null, error: `API Error: ${errors[0]?.message || "Failed to load product"}` };
     }
 
     if (!data?.product) {
-      return { product: null, error: "Product not found" };
+      console.log(`[Product] No product found with handle: ${handle}`);
+      return { product: null, error: `Product "${handle}" not found in store` };
     }
 
+    console.log(`[Product] Successfully loaded: ${data.product.title}`);
     return { product: data.product as ProductDetails };
   } catch (error) {
-    console.error("Failed to fetch product:", error);
-    return { product: null, error: "Failed to load product" };
+    console.error("[Product] Failed to fetch product:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to load product";
+    return { product: null, error: errorMessage };
   }
 }
 
@@ -71,7 +76,15 @@ export async function action({
   const quantity = parseInt(formData.get("quantity") as string) || 1;
   const cartId = formData.get("cartId") as string | null;
 
+  console.log("[AddToCart] Action called with:", {
+    variantId,
+    quantity,
+    cartId,
+    hasStorefrontToken: !!process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+  });
+
   if (!variantId) {
+    console.log("[AddToCart] Error: Variant ID is required");
     return { success: false, error: "Variant ID is required" };
   }
 
@@ -80,6 +93,7 @@ export async function action({
   try {
     // If we have an existing cart, add to it
     if (cartId) {
+      console.log("[AddToCart] Adding to existing cart:", cartId);
       const { data, errors } = await storefrontClient.request(
         CART_LINES_ADD_MUTATION,
         {
@@ -87,18 +101,29 @@ export async function action({
         }
       );
 
+      console.log("[AddToCart] CartLinesAdd response:", {
+        hasData: !!data,
+        hasCart: !!data?.cartLinesAdd?.cart,
+        cartId: data?.cartLinesAdd?.cart?.id,
+        totalQuantity: data?.cartLinesAdd?.cart?.totalQuantity,
+        errors,
+        userErrors: data?.cartLinesAdd?.userErrors,
+      });
+
       if (errors || data?.cartLinesAdd?.userErrors?.length > 0) {
         const errorMsg =
           data?.cartLinesAdd?.userErrors?.[0]?.message ||
           "Failed to add to cart";
-        console.error("Cart add errors:", errors || data?.cartLinesAdd?.userErrors);
+        console.error("[AddToCart] Cart add errors:", errors || data?.cartLinesAdd?.userErrors);
         return { success: false, error: errorMsg };
       }
 
+      console.log("[AddToCart] Successfully added to cart, returning cart:", data.cartLinesAdd.cart?.id);
       return { success: true, cart: data.cartLinesAdd.cart as Cart };
     }
 
     // Create a new cart with the item
+    console.log("[AddToCart] Creating new cart");
     const { data, errors } = await storefrontClient.request(
       CART_CREATE_MUTATION,
       {
@@ -106,16 +131,27 @@ export async function action({
       }
     );
 
+    console.log("[AddToCart] CartCreate response:", {
+      hasData: !!data,
+      hasCart: !!data?.cartCreate?.cart,
+      cartId: data?.cartCreate?.cart?.id,
+      totalQuantity: data?.cartCreate?.cart?.totalQuantity,
+      checkoutUrl: data?.cartCreate?.cart?.checkoutUrl,
+      errors,
+      userErrors: data?.cartCreate?.userErrors,
+    });
+
     if (errors || data?.cartCreate?.userErrors?.length > 0) {
       const errorMsg =
         data?.cartCreate?.userErrors?.[0]?.message || "Failed to create cart";
-      console.error("Cart create errors:", errors || data?.cartCreate?.userErrors);
+      console.error("[AddToCart] Cart create errors:", errors || data?.cartCreate?.userErrors);
       return { success: false, error: errorMsg };
     }
 
+    console.log("[AddToCart] Successfully created cart:", data.cartCreate.cart?.id);
     return { success: true, cart: data.cartCreate.cart as Cart };
   } catch (error) {
-    console.error("Cart operation failed:", error);
+    console.error("[AddToCart] Cart operation failed:", error);
     return { success: false, error: "Failed to add item to cart" };
   }
 }
@@ -176,8 +212,22 @@ export default function ProductPage() {
 
   // Update cart context when fetcher returns
   useEffect(() => {
+    console.log("[ProductPage] Fetcher data changed:", {
+      hasData: !!fetcher.data,
+      success: fetcher.data?.success,
+      hasCart: !!fetcher.data?.cart,
+      cartId: fetcher.data?.cart?.id,
+      totalQuantity: fetcher.data?.cart?.totalQuantity,
+      error: fetcher.data?.error,
+    });
+
     if (fetcher.data?.success && fetcher.data.cart) {
       const cart = fetcher.data.cart;
+      console.log("[ProductPage] Updating cart context with:", {
+        cartId: cart.id,
+        totalQuantity: cart.totalQuantity,
+        checkoutUrl: cart.checkoutUrl,
+      });
       setCartId(cart.id);
       setCartCount(cart.totalQuantity);
       setCheckoutUrl(cart.checkoutUrl);
@@ -196,6 +246,9 @@ export default function ProductPage() {
       <div className={styles.errorContainer}>
         <h1>Product Not Found</h1>
         <p>{error || "The product you're looking for doesn't exist."}</p>
+        <p className={styles.errorHint}>
+          Make sure the product exists in your Shopify store and the Storefront API token has access.
+        </p>
         <a href="/" className={styles.backLink}>
           Back to Store
         </a>

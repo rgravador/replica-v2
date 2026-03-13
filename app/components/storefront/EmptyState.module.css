@@ -8,20 +8,20 @@
 }
 
 .icon {
-  color: #ccc;
+  color: var(--color-text-muted);
   margin-bottom: 1.5rem;
 }
 
 .heading {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 0.5rem;
 }
 
 .message {
   font-size: 1rem;
-  color: #666;
+  color: var(--color-text-secondary);
   margin: 0 0 1.5rem;
   max-width: 300px;
 }
@@ -29,8 +29,8 @@
 .action {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background-color: #1a1a1a;
-  color: white;
+  background-color: var(--color-gold);
+  color: var(--color-navy-dark);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
@@ -39,5 +39,5 @@
 }
 
 .action:hover {
-  background-color: #333;
+  background-color: var(--color-gold-hover);
 }

@@ -24,7 +24,7 @@
 
 .mainImage {
   aspect-ratio: 1;
-  background-color: #f5f5f5;
+  background-color: var(--color-navy-light);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -41,7 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  color: var(--color-text-muted);
   font-size: 1rem;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .thumbnailActive {
-  border-color: #d4af37;
+  border-color: var(--color-gold);
 }
 
 /* Product Info */
@@ -84,7 +84,7 @@
 .title {
   font-size: 2rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
   line-height: 1.2;
 }
@@ -98,12 +98,12 @@
 .currentPrice {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #d4af37;
+  color: var(--color-gold);
 }
 
 .comparePrice {
   font-size: 1.125rem;
-  color: #999;
+  color: var(--color-text-muted);
   text-decoration: line-through;
 }
 
@@ -117,7 +117,7 @@
 .quantityLabel {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .quantityControls {
@@ -130,8 +130,9 @@
 .quantityButton {
   width: 40px;
   height: 40px;
-  border: 1px solid #ddd;
-  background: white;
+  border: 1px solid var(--color-border);
+  background: var(--color-navy-light);
+  color: var(--color-text-primary);
   font-size: 1.25rem;
   cursor: pointer;
   display: flex;
@@ -149,7 +150,7 @@
 }
 
 .quantityButton:hover:not(:disabled) {
-  background-color: #f5f5f5;
+  background-color: var(--color-navy-dark);
 }
 
 .quantityButton:disabled {
@@ -160,9 +161,11 @@
 .quantityInput {
   width: 60px;
   height: 40px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-left: none;
   border-right: none;
+  background: var(--color-navy-light);
+  color: var(--color-text-primary);
   text-align: center;
   font-size: 1rem;
   -moz-appearance: textfield;
@@ -177,19 +180,19 @@
 /* Description */
 .description {
   padding-top: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--color-border);
 }
 
 .descriptionTitle {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 1rem;
 }
 
 .descriptionContent {
   font-size: 1rem;
-  color: #666;
+  color: var(--color-text-secondary);
   line-height: 1.6;
 }
 
@@ -220,21 +223,27 @@
 .errorContainer h1 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 0.5rem;
 }
 
 .errorContainer p {
   font-size: 1rem;
-  color: #666;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem;
+}
+
+.errorHint {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
   margin: 0 0 1.5rem;
 }
 
 .backLink {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background-color: #1a1a1a;
-  color: white;
+  background-color: var(--color-gold);
+  color: var(--color-navy-dark);
   text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
@@ -243,5 +252,5 @@
 }
 
 .backLink:hover {
-  background-color: #333;
+  background-color: var(--color-gold-hover);
 }

@@ -5,8 +5,8 @@
 .button {
   width: 100%;
   padding: 1rem 2rem;
-  background-color: #d4af37;
-  color: white;
+  background-color: var(--color-gold);
+  color: var(--color-navy-dark);
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -18,7 +18,7 @@
 }
 
 .button:hover:not(:disabled) {
-  background-color: #c9a030;
+  background-color: var(--color-gold-hover);
 }
 
 .button:disabled {
@@ -26,6 +26,6 @@
 }
 
 .disabled {
-  background-color: #ccc;
-  color: #666;
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
 }

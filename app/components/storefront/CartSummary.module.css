@@ -1,6 +1,6 @@
 .summary {
-  background: white;
-  border: 1px solid #eee;
+  background: var(--color-navy-light);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1.5rem;
   position: sticky;
@@ -10,7 +10,7 @@
 .title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 1.5rem;
 }
 
@@ -19,7 +19,7 @@
   flex-direction: column;
   gap: 0.75rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .row {
@@ -30,12 +30,12 @@
 
 .label {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .value {
   font-size: 0.875rem;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .totalRow {
@@ -43,19 +43,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .totalLabel {
   font-size: 1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .totalValue {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #d4af37;
+  color: var(--color-gold);
 }
 
 .checkoutButton {
@@ -63,8 +63,8 @@
   width: 100%;
   padding: 1rem;
   margin-top: 1.5rem;
-  background-color: #d4af37;
-  color: white;
+  background-color: var(--color-gold);
+  color: var(--color-navy-dark);
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -78,12 +78,12 @@
 }
 
 .checkoutButton:hover {
-  background-color: #c9a030;
+  background-color: var(--color-gold-hover);
 }
 
 .note {
   font-size: 0.75rem;
-  color: #999;
+  color: var(--color-text-muted);
   text-align: center;
   margin: 1rem 0 0;
 }

@@ -49,18 +49,24 @@ export async function loader({ request }: LoaderFunctionArgs): Promise<LoaderDat
 }
 
 export default function Storefront() {
-  const { products, shop, hasNextPage, endCursor } = useLoaderData<typeof loader>();
+  const { products, hasNextPage, endCursor } = useLoaderData<typeof loader>();
 
   return (
-    <div className={styles.page}>
-      <section className={styles.hero}>
-        <h1 className={styles.title}>{shop.name}</h1>
-        {shop.description && (
-          <p className={styles.description}>{shop.description}</p>
-        )}
+    <>
+      {/* Hero Section */}
+      <section className={styles.landingHero}>
+        <h1 className={styles.landingHeading}>Authentic Western Replica Firearms</h1>
+        <p className={styles.landingTagline}>
+          Museum-quality replicas of legendary revolvers, rifles, and accessories from the Wild West era.
+          Perfect for collectors, reenactors, and western enthusiasts.
+        </p>
+        <a href="#products" className={styles.landingCtaButton}>
+          Shop Collection
+        </a>
       </section>
 
-      <section className={styles.products}>
+      <div className={styles.page}>
+        <section id="products" className={styles.products}>
         <h2 className={styles.sectionTitle}>Products</h2>
 
         {products.length > 0 ? (
@@ -84,7 +90,8 @@ export default function Storefront() {
             message="Check back soon for new arrivals."
           />
         )}
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }

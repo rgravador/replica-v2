@@ -127,20 +127,28 @@ export async function action({
 
 export default function CartPage() {
   const loaderData = useLoaderData<LoaderData>();
-  const { cartId, setCartCount, setCheckoutUrl, checkoutUrl } = useCart();
+  const { cartId, setCartCount, setCheckoutUrl, checkoutUrl, isHydrated } = useCart();
   const fetcher = useFetcher<ActionData>();
   const cartFetcher = useFetcher<LoaderData>();
 
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   // Fetch cart data when we have a cart ID (client-side)
+  // Wait for hydration before fetching
   useEffect(() => {
-    if (cartId && !isInitialized) {
+    if (isHydrated && cartId && !hasFetched) {
+      console.log("[Cart] Fetching cart with ID:", cartId);
       cartFetcher.load(`/cart?cartId=${encodeURIComponent(cartId)}`);
-      setIsInitialized(true);
+      setHasFetched(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartId, isInitialized]);
+  }, [isHydrated, cartId, hasFetched, cartFetcher]);
+
+  // Reset fetch state if cart ID changes (e.g., after clearing cart)
+  useEffect(() => {
+    if (!cartId) {
+      setHasFetched(false);
+    }
+  }, [cartId]);
 
   // Update cart context when fetcher returns updated cart
   useEffect(() => {
@@ -158,8 +166,24 @@ export default function CartPage() {
 
   // Get the cart data from cartFetcher or action response
   const cart = fetcher.data?.cart || cartFetcher.data?.cart || loaderData.cart;
-  const isLoading = cartFetcher.state === "loading" && !cart;
+  // Show loading if:
+  // - Not yet hydrated (waiting for localStorage)
+  // - Have cartId but haven't fetched yet
+  // - Fetcher is loading
+  const isLoading = !isHydrated || (cartId && !hasFetched) || (cartFetcher.state === "loading" && !cart);
   const isSubmitting = fetcher.state === "submitting";
+
+  // Debug logging
+  useEffect(() => {
+    console.log("[Cart] State:", {
+      isHydrated,
+      cartId,
+      hasFetched,
+      cartFetcherState: cartFetcher.state,
+      hasCart: !!cart,
+      cartItems: cart?.lines?.nodes?.length ?? 0,
+    });
+  }, [isHydrated, cartId, hasFetched, cartFetcher.state, cart]);
 
   // Handle quantity update
   const handleQuantityChange = (lineId: string, quantity: number) => {
@@ -189,7 +213,7 @@ export default function CartPage() {
     );
   };
 
-  // Show loading state
+  // Show loading state while fetching or waiting for cart context to initialize
   if (isLoading) {
     return (
       <div className={styles.container}>
@@ -199,8 +223,9 @@ export default function CartPage() {
     );
   }
 
-  // Show empty state
-  if (!cart || cart.lines.nodes.length === 0) {
+  // Show empty state only when we're sure there's no cart
+  // Must be hydrated and either have no cartId or cart was fetched and is empty
+  if (isHydrated && (!cartId || !cart || cart.lines.nodes.length === 0)) {
     return (
       <div className={styles.container}>
         <h1 className={styles.title}>Your Cart</h1>

@@ -2,23 +2,23 @@
   display: block;
   text-decoration: none;
   color: inherit;
-  background: white;
-  border: 1px solid #eee;
+  background: var(--color-navy-light);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.2s;
 }
 
 .card:hover {
-  border-color: #d4af37;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
 
 .imageContainer {
   aspect-ratio: 1;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: var(--color-navy-dark);
 }
 
 .image {
@@ -38,7 +38,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  color: var(--color-text-muted);
   font-size: 0.875rem;
 }
 
@@ -50,7 +50,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   margin: 0 0 0.5rem;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -62,5 +62,5 @@
   font-size: 1rem;
   font-weight: 700;
   margin: 0;
-  color: #d4af37;
+  color: var(--color-gold);
 }
