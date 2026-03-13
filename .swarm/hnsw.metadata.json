@@ -1,0 +1,1 @@
+[["entry_1773407668951_6sa6bq",{"id":"entry_1773407668951_6sa6bq","key":"routing-convention","namespace":"project-conventions","content":"Pages should follow the convention app/routes/pagename/route.tsx. All related files (styles, components, utilities) should be colocated in the same app/routes/pagename/ directory."}]]

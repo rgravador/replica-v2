@@ -1,9 +1,4 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import globalStyles from "./styles/global.css?url";
-
-export const links = () => [
-  { rel: "stylesheet", href: globalStyles },
-];
 
 export default function App() {
   return (

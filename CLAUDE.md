@@ -54,11 +54,21 @@ npm run graphql-codegen
 
 ### Routing Convention
 Routes use React Router's flat file routing in `app/routes/`:
-- `app.jsx`: Layout wrapper for authenticated app pages (applies `AppProvider`)
-- `app._index.jsx`: Home page (`/app`)
-- `app.additional.jsx`: Additional page (`/app/additional`)
-- `auth.$.jsx`: OAuth callback handler
-- `webhooks.*.jsx`: Webhook handlers
+- `app.tsx`: Layout wrapper for authenticated app pages (applies `AppProvider`)
+- `auth.$.tsx`: OAuth callback handler
+- `webhooks.*.tsx`: Webhook handlers
+
+**Pages should use directory structure:**
+```
+app/routes/pagename/
+├── route.tsx           # main route file
+├── styles.module.css   # page styles
+└── ...                 # related components, utilities
+```
+
+Examples:
+- `app/routes/app._index/route.tsx` → `/app`
+- `app/routes/app.products/route.tsx` → `/app/products`
 
 ### Shopify Authentication Pattern
 Every protected route loader/action must call `authenticate.admin(request)`:
